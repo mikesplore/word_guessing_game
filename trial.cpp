@@ -9,11 +9,6 @@ using namespace std;
 
 
 int main() {
-    cout << "\nWELCOME TO THE WORD GUESSING GAME\n" << endl;
-    string username;
-
-    cout <<"Enter your username: ";
-    getline(cin, username);
     
     
     srand(static_cast<unsigned int>(time(nullptr)));
@@ -21,8 +16,7 @@ int main() {
     vector<string> words;
     string category;
     
-    cout<<"\nHey "<<username<<"!, here are the available  categories of words you can try:\n1. Animals\n2. Countries\n3. Colors\n4. Fruits "<<endl;
-    cout<<"Enter a category in lowercase: ";
+    cout<<"Enter category of words you want eg animals, countries: ";
     getline(cin, category);
 
     string filecategory=category + ".txt";
@@ -30,23 +24,17 @@ int main() {
     
 
     
-   ifstream wordsFile(filecategory);
-if (wordsFile.is_open()) {
-    string word;
-    while (getline(wordsFile, word)) {
-        words.push_back(word);
-    }
-    wordsFile.close();
-
-    if (words.empty()) {
-        cerr << "The file '" << filecategory << "' is currently empty." << endl;
+    ifstream wordsFile(filecategory);
+    if (wordsFile.is_open()) {
+        string word;
+        while (getline(wordsFile, word)) {  //words are stored in a file "words.txt"
+            words.push_back(word);
+        }
+        wordsFile.close();
+    } else {
+        cerr << "Failed to open words file. Please make sure '"<<filecategory<<"' exists." << endl;
         return 1;
     }
-} else {
-    cerr << "Failed to open "<<category<<" file. Please make sure '" << filecategory << "' exists." << endl;
-    return 1;
-}
-
     
 
     
@@ -61,7 +49,7 @@ if (wordsFile.is_open()) {
         highScoreFile.close();
     }
 
-    
+    cout << "\nWELCOME TO THE WORD GUESSING GAME\n" << endl;
 
     
     //the rules function called here
@@ -153,13 +141,11 @@ if (!validInput) {
                 cout<<"Points for this game: "<<5-deduct<<endl;
                 cout << "Total points: " << points<< "\n"<< endl;
                 
-                if(points==high_score){
-                    cout<<"Great! You equalled the prevoius high score record of "<<high_score<<" points! Time to break it."<<endl;
-                }
+
 
                 if (points > high_score) {
                     high_score = points;
-                    cout << "Congratulations "<<username<<"!, You broke the previous record of " << high_score - 5 << " points!" << endl;
+                    cout << "Congratulations! You broke the previous record of " << high_score - 5 << " points!" << endl;
                 }
                 break;
             } else {
@@ -197,7 +183,7 @@ if (!validInput) {
         highScoreOut.close();
     }
 
-    cout << "Thanks for playing, "<<username << endl;
+    cout << "Thanks for playing!" << endl;
     return 0;
 }
 //Developed by Mike :)

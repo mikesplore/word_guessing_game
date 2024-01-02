@@ -1,6 +1,0 @@
-categories
-1.files for each category
-2 high score for each category
-3. universal score and high scores
-separate the code into multiple files, i.e header file, main file and function file. 
-it will be easier for code writing...or just separate the ,main function from the functions
